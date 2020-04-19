@@ -19,20 +19,22 @@
         maxlength="10"
       ></v-text-field>
       <router-link to="/waiting" tag="span">
-        <v-btn class="white--text" color="green" width="100%" x-large :disabled="disabled">Play</v-btn>
+        <v-btn class="white--text" color="green" width="100%" x-large :disabled="disabled" @click="sendName">Play</v-btn>
       </router-link>
     </v-form>
   </v-container>
 </template>
 
 <script>
+import io from 'socket.io-client';
 
 export default {
   name: 'Start',
   data: () => ({
     disabled: true,
     name: "",
-    room: ""
+    room: "",
+    socket : io('localhost:3001')
   }),
   methods: {
     checkValues() {
@@ -43,6 +45,11 @@ export default {
       if (this.name && this.room.length === 4) {
         this.disabled = false;
       }
+    },
+    sendName() {
+      this.socket.emit('SEND_MESSAGE', {
+          message: this.name
+      });
     }
   }
 };

@@ -3,15 +3,28 @@
     <h1>UVU Feud!</h1>
     <h2>Go to http://feud.heatherbutterfield.com/start</h2>
     <h2>Enter the code <b>{{getRoomCode()}}</b></h2>
+    <div v-for="name in names" v-bind:key="name">
+    <v-card
+      class="mx-auto text-center"
+      max-width="200"
+      height="200"
+      outlined
+    >
+    <v-card-title>{{name}}</v-card-title>
+    <i class="fas fa-user fa-7x"></i>
+    </v-card>
+    </div>
   </v-container>
 </template>
 
 <script>
+import io from 'socket.io-client';
 
 export default {
   name: 'Home',
   data: () => ({
-
+    socket : io('localhost:3001'),
+    names: []
   }),
   methods: {
     getRoomCode() {
@@ -23,6 +36,11 @@ export default {
       code += alphaNum[Math.round(Math.random() * 36)];
       return code;
     }
+  },
+  mounted() {
+    this.socket.on('MESSAGE', (data) => {
+        this.names.push(data.message)
+    });
   }
 };
 </script>
