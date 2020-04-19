@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1>UVU Feud!</h1>
-    <h2>Go to http://feud.heatherbutterfield.com/play</h2>
+    <h2>Go to http://feud.heatherbutterfield.com/start</h2>
     <h2>Enter the code <b>{{getRoomCode()}}</b></h2>
   </v-container>
 </template>

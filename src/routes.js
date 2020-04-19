@@ -7,6 +7,7 @@ import Waiting from './components/Waiting.vue'
 
 export const routes = [
   { path: '/', component: Home },
+  { path: '/start', component: Start },
   { path: '/play', component: Play },
   { path: '/waiting', component: Waiting },
 ];
